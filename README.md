@@ -88,3 +88,7 @@ The FTP transfer will occur each 15 minutes, if there are no files, it will exit
 ```
 
 ## Open Points
+
+- if the ftp script encounters a problem it does not return a non zero return code
+- no clean up for files older than n days, so manual cleanup of disk space is needed
+
