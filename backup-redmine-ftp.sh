@@ -4,7 +4,7 @@
 
 # Count files ----------------------------
 
-FILE_COUNT=`(ls -1 $WORK_DIR | wc -l)`
+FILE_COUNT=`(ls -1 $FTP_TRANSFER_DIR | wc -l)`
 
 exitOnError "No files found to be transfered. Exiting."
 
@@ -16,12 +16,12 @@ exitOnError "Server '$FTP_HOST' is not available, dumps were not transfered. Exi
 
 # FTP transfer ----------------------------
 
-log "Found $FILE_COUNT files in '$WORK_DIR' and server '$FTP_HOST' is up. Using $FTP_TARGET_DIR."
+log "Found $FILE_COUNT files in '$FTP_TRANSFER_DIR' and server '$FTP_HOST' is up. Using $FTP_TARGET_DIR."
 
 ftp -v $FTP_HOST << EOT
 bin
 prompt
-lcd $WORK_DIR
+lcd $FTP_TRANSFER_DIR
 cd $FTP_TARGET_DIR 
 mput *
 bye
@@ -31,7 +31,7 @@ exitOnError "FTP transfer to '$FTP_HOST' failed. Exiting." 2
 
 # Local archiving ------------------------
 
-mv $WORK_DIR/$BACKUP_PREFIX* $ARCHIVE_DIR/
+mv $FTP_TRANSFER_DIR/$BACKUP_PREFIX* $ARCHIVE_DIR/
 
 log "FTP transfer completed, files moved to '$ARCHIVE_DIR'"
 
